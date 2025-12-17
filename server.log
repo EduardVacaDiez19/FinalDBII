@@ -1,0 +1,24 @@
+
+> finaldbii@1.0.0 start
+> node server.js
+
+🔌 Configurando SQL Server CON AUTENTICACIÓN WINDOWS
+   → En Docker/Linux usando usuario SA (SQL Auth alternativa)
+🚀 Iniciando Sistema Clínica Dental...
+
+📊 Conectando a SQL Server (ClinicaDentalDB)...
+Connected to SQL Server
+🍃 Conectando a MongoDB (ClinicaDentalNoSQL)...
+MongoDB connected successfully
+
+✅ SISTEMA INICIADO CORRECTAMENTE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 Servidor: http://localhost:3000
+📡 API: http://localhost:3000/api
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 Credenciales de prueba:
+   Usuario: luis.s
+   Contraseña: Paciente123!
+
