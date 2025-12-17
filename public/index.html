@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Dental</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <h1><i class="fas fa-tooth"></i> Clínica Dental</h1>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Usuario" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+                <div id="loginError" style="display:none; color:red;"></div>
+            </form>
+            <p><small>Prueba: luis.s / Paciente123!</small></p>
+        </div>
+    </div>
+
+    <div id="appContainer" style="display:none;">
+        <header>
+            <h2>Clínica Dental</h2>
+            <span id="userName"></span>
+            <button id="logoutBtn">Salir</button>
+        </header>
+        
+        <nav id="menu">
+            <a href="#" data-section="inicio" class="active">Inicio</a>
+            <a href="#" data-section="pacientes">Pacientes</a>
+            <a href="#" data-section="citas">Citas</a>
+            <a href="#" data-section="inventario">Inventario</a>
+            <a href="#" data-section="expedientes">Expedientes</a>
+            <a href="#" data-section="encuestas">Encuestas</a>
+        </nav>
+
+        <main id="content">
+            <section id="section-inicio" class="active">
+                <h1>Dashboard</h1>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3 id="totalPacientes">0</h3>
+                        <p>Pacientes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalCitas">0</h3>
+                        <p>Citas</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalProductos">0</h3>
+                        <p>Productos</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="promedioCalidad">0</h3>
+                        <p>Satisfacción</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-pacientes">
+                <h1>Pacientes</h1>
+                <button onclick="showModal('modalPaciente')">Nuevo Paciente</button>
+                <table id="tablaPacientes">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <section id="section-citas">
+                <h1>Citas</h1>
+                <button onclick="showModal('modalCita')">Nueva Cita</button>
+                <table id="tablaCitas">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Paciente</th>
+                            <th>Doctor</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <section id="section-inventario">
+                <h1>Inventario</h1>
+                <div id="productosGrid"></div>
+            </section>
+
+            <section id="section-expedientes">
+                <h1>Expedientes</h1>
+                <div id="expedientesList"></div>
+            </section>
+
+            <section id="section-encuestas">
+                <h1>Encuestas</h1>
+                <div id="estadisticas"></div>
+                <table id="tablaEncuestas">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Fecha</th>
+                            <th>Puntuación</th>
+                            <th>Comentarios</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modales -->
+    <div id="modalPaciente" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalPaciente')">&times;</span>
+            <h2>Registrar Paciente</h2>
+            <form id="formPaciente">
+                <input type="text" name="nombreUsuario" placeholder="Usuario" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="text" name="apellido" placeholder="Apellido" required>
+                <input type="date" name="fechaNacimiento">
+                <input type="tel" name="telefono" placeholder="Teléfono">
+                <input type="text" name="direccion" placeholder="Dirección">
+                <input type="text" name="alergias" placeholder="Alergias">
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalCita" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalCita')">&times;</span>
+            <h2>Agendar Cita</h2>
+            <form id="formCita">
+                <select name="pacienteID" id="selectPaciente" required>
+                    <option value="">Seleccionar Paciente</option>
+                </select>
+                <select name="doctorID" id="selectDoctor" required>
+                    <option value="">Seleccionar Doctor</option>
+                </select>
+                <input type="datetime-local" name="fechaCita" required>
+                <button type="submit">Agendar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>
