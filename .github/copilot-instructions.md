@@ -33,20 +33,24 @@ Aplicación web para gestión de una Clínica Dental con arquitectura híbrida: 
 
 ## Estructura del Proyecto
 
-- `public/` Frontend estático
-  - `index.html`, `css/styles.css`, `js/app.js` (navegación SPA simple + consumo de API)
-- `config/` Conexiones a BD
-  - `database.sql.js` — wrapper para SQL Server (`getConnection`, `executeStoredProcedure`)
-  - `database.mongo.js` — conexión Mongo y modelos (`Expediente`, `Proveedor`, `Encuesta`, `Marketing`)
-- `sql/` Scripts SQL para bootstrap y seguridad
-  - `CreaciondeTablas.sql`, `StoredProcedures.sql`, `Triggers.sql`, `Transacciones.sql`, `CreaciondeIndices.sql`, `FixSecurity.sql`
-- `Mongodb.js` Script de semillas para Mongo (shell) con colecciones de ejemplo
-- `.env.example` Variables de entorno de muestra
-- `README.md` Instrucciones breves (redirige a docs)
-
-IMPORTANTE sobre `server.js`:
-- El `package.json` define `main: server.js` y scripts `start`/`dev` apuntan a `server.js` en la RAÍZ del repo.
-- Existe un `server.js` completo en `mnt/user-data/outputs/clinica-dental-real/server.js` que está diseñado para correr desde la raíz (usa `./config/...` y `./public`). Para ejecutar el proyecto, coloca ese archivo en la raíz como `server.js` o ajusta rutas/`package.json` en consecuencia.
+- `server.js` — Servidor Express principal con todas las rutas API
+- `public/` — Frontend estático
+  - `index.html` — Interfaz principal
+  - `css/styles.css` — Estilos globales
+  - `js/app.js` — Lógica del cliente (navegación SPA + consumo de API)
+- `config/` — Configuraciones de bases de datos
+  - `database.sql.js` — Wrapper para SQL Server (`getConnection`, `executeStoredProcedure`)
+  - `database.mongo.js` — Conexión MongoDB y modelos (`Expediente`, `Proveedor`, `Encuesta`, `Marketing`)
+- `sql/` — Scripts SQL para inicialización
+  - `CreaciondeTablas.sql` — Esquema de tablas
+  - `StoredProcedures.sql` — Procedimientos almacenados
+  - `Triggers.sql` — Triggers de auditoría
+  - `Transacciones.sql` — Transacciones complejas
+  - `CreaciondeIndices.sql` — Índices de optimización
+  - `FixSecurity.sql` — Configuración de seguridad (opcional)
+- `Mongodb.js` — Script de semillas para MongoDB
+- `.env.example` — Plantilla de variables de entorno
+- `package.json` — Dependencias y scripts npm
 
 ## Variables de Entorno
 Crea un `.env` basado en `.env.example`. Mínimos para Linux/macOS (auth SQL):
@@ -71,30 +75,30 @@ Notas:
 
 ## Puesta en Marcha (Local)
 
-1) Base de datos SQL Server
-- Crea BD `ClinicaDentalDB` y ejecuta en orden:
-  1. `sql/CreaciondeTablas.sql`
-  2. `sql/StoredProcedures.sql`
-  3. `sql/Triggers.sql`
-  4. `sql/Transacciones.sql`
-  5. `sql/CreaciondeIndices.sql`
-  6. `sql/FixSecurity.sql` (opcional/seguridad)
+1) **Base de datos SQL Server**
+   - Crea la base de datos `ClinicaDentalDB` y ejecuta los scripts en orden:
+     1. `sql/CreaciondeTablas.sql`
+     2. `sql/StoredProcedures.sql`
+     3. `sql/Triggers.sql`
+     4. `sql/Transacciones.sql`
+     5. `sql/CreaciondeIndices.sql`
+     6. `sql/FixSecurity.sql` (opcional para seguridad adicional)
 
-2) MongoDB
-- Asegura `mongod` corriendo y ejecuta semillas:
-  - `mongosh < Mongodb.js` (o abre `mongosh` y pega el contenido)
+2) **MongoDB**
+   - Asegura que `mongod` esté corriendo
+   - Ejecuta las semillas: `mongosh < Mongodb.js`
 
-3) Backend
-- Coloca `mnt/user-data/outputs/clinica-dental-real/server.js` en la raíz como `server.js` (si aún no existe).
-- Instala dependencias y arranca:
-  - `npm install`
-  - `npm run dev` (desarrollo) o `npm start`
+3) **Backend**
+   - Instala dependencias: `npm install`
+   - Arranca el servidor:
+     - Desarrollo: `npm run dev` (con recarga automática)
+     - Producción: `npm start`
 
-4) Frontend
-- Abre `http://localhost:3000/`.
-- Login de prueba:
-  - Usuario: `luis.s`
-  - Contraseña: `Paciente123!`
+4) **Frontend**
+   - Abre `http://localhost:3000/` en tu navegador
+   - **Credenciales de prueba:**
+     - Usuario: `luis.s`
+     - Contraseña: `Paciente123!`
 
 ## Endpoints Principales
 - `POST /api/auth/login`
