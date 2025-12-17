@@ -4,7 +4,7 @@ Este archivo guía a Copilot (chat y agentes) para trabajar eficientemente en es
 
 ## Resumen del Proyecto
 
-Sistema web para gestión de clínica dental con arquitectura híbrida. Los datos operacionales (pacientes, citas, doctores, tratamientos) viven en SQL Server, mientras que los datos flexibles y analíticos (expedientes médicos, inventario, encuestas, marketing) se almacenan en MongoDB. El frontend es estático (HTML/CSS/JS) y consume una API REST construida con Express.
+  Sistema web para gestión de clínica dental con arquitectura híbrida. Los datos operacionales (pacientes, citas, doctores, tratamientos) viven en SQL Server, mientras que los datos flexibles y analíticos (expedientes médicos, inventario, encuestas, marketing) se almacenan en MongoDB. El frontend es estático (HTML/CSS/JS) y consume una API REST construida con Express.
 
 ## Tech Stack
 
