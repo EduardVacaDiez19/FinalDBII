@@ -117,10 +117,11 @@ Notas:
 - Frontend: `public/js/app.js` define llamadas y estructuras esperadas en respuestas (e.g., `data`, `count`, `estadisticas`).
 
 ## Errores Comunes y Cómo Evitarlos
-- `npm start` falla porque no existe `server.js` en la raíz: copia `mnt/.../server.js` a la raíz o ajusta `package.json`.
-- Instalación de `msnodesqlv8` en Linux: evita autenticación Windows definiendo `SQL_USER`/`SQL_PASSWORD` para usar `mssql` puro.
-- CORS/puertos: el cliente asume `http://localhost:3000/api`.
-- Datos vacíos: si no corres `Mongodb.js` no verás tarjetas de inventario/encuestas/expedientes.
+- **Instalación de `msnodesqlv8` en Linux/macOS:** Evita autenticación Windows definiendo `SQL_USER`/`SQL_PASSWORD` en `.env` para usar `mssql` puro.
+- **CORS/puertos:** El cliente asume `http://localhost:3000/api`. Asegúrate de que el servidor esté corriendo en el puerto correcto.
+- **Datos vacíos:** Si no ejecutas `Mongodb.js`, no verás datos de inventario/encuestas/expedientes.
+- **Error de conexión SQL Server:** Verifica que el servicio esté activo, el puerto 1433 accesible y las credenciales en `.env` sean correctas.
+- **Error de conexión MongoDB:** Verifica que `mongod` esté corriendo y `MONGO_URI` en `.env` sea correcto.
 
 ## Convenciones al Extender
 - Nuevas rutas: colocarlas en `server.js` (o extraer por routers manteniendo prefijo `/api`).
