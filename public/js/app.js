@@ -41,7 +41,7 @@ const ROLE_PERMISSIONS = {
         sections: ['inicio', 'pacientes', 'citas', 'inventario', 'expedientes', 'encuestas'],
         actions: ['create_paciente', 'delete_paciente', 'create_cita', 'view_all_citas']
     },
-    'Doctor': {
+    'Dentista': {
         sections: ['inicio', 'pacientes', 'citas', 'expedientes'],
         actions: ['create_cita', 'view_all_citas', 'view_all_pacientes']
     },

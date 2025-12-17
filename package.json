@@ -1,0 +1,31 @@
+{
+  "name": "finaldbii",
+  "version": "1.0.0",
+  "description": "Sistema Web Clínica Dental - Arquitectura Híbrida SQL Server + MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduardVacaDiez19/FinalDBII.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EduardVacaDiez19/FinalDBII/issues"
+  },
+  "homepage": "https://github.com/EduardVacaDiez19/FinalDBII#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mssql": "^10.0.1",
+    "mongoose": "^8.0.0",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

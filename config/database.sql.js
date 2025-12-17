@@ -1,13 +1,16 @@
 require('dotenv').config();
 
-// Determinamos si usamos autenticación de Windows (si no hay usuario definido)
-const useWindowsAuth = !process.env.SQL_USER || process.env.SQL_USER.trim() === '';
+// En Linux/Docker, siempre usamos SQL AUTH aunque SQL_USER='.'
+// El '.' es solo un marcador para indicar autenticación Windows
+const sql = require('mssql');
 
-// Importamos el driver correcto según el modo
-const sql = useWindowsAuth ? require('mssql/msnodesqlv8') : require('mssql');
+// Determinamos si usamos autenticación de Windows
+const useWindowsAuth = !process.env.SQL_USER ||
+    process.env.SQL_USER.trim() === '' ||
+    process.env.SQL_USER.trim() === '.';
 
 const config = {
-    server: process.env.SQL_SERVER || '.',
+    server: process.env.SQL_SERVER || 'localhost',
     database: process.env.SQL_DATABASE || 'ClinicaDentalDB',
     options: {
         encrypt: false,
@@ -17,9 +20,13 @@ const config = {
 };
 
 if (useWindowsAuth) {
-    console.log(`🔌 Configurando SQL Server con WINDOWS AUTHENTICATION (Server: ${config.server})`);
-    config.options.trustedConnection = true;
-    config.driver = 'msnodesqlv8';
+    // Para Linux/Docker con SQL Server en contenedor:
+    // Usa usuario SA (admin por defecto)
+    console.log(`🔌 Configurando SQL Server CON AUTENTICACIÓN WINDOWS`);
+    console.log(`   → En Docker/Linux usando usuario SA (SQL Auth alternativa)`);
+    config.user = process.env.SQL_USER_DOCKER || 'sa';
+    config.password = process.env.SQL_PASSWORD_DOCKER || 'YourStrong!Passw0rd';
+    config.port = parseInt(process.env.SQL_PORT) || 1433;
 } else {
     console.log(`🔌 Configurando SQL Server con SQL AUTH (User: ${process.env.SQL_USER})`);
     config.user = process.env.SQL_USER;
