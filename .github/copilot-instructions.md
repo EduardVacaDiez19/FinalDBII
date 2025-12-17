@@ -4,32 +4,51 @@ Este archivo guía a Copilot (chat y agentes) para trabajar eficientemente en es
 
 ## Resumen del Proyecto
 
-Aplicación web para gestión de una Clínica Dental con arquitectura híbrida: datos operacionales en SQL Server (PACIENTES, CITAS, DOCTORES, etc.) y datos flexibles/analíticos en MongoDB (Expedientes, Proveedores/Inventario, Encuestas, Marketing). Frontend estático (HTML/CSS/JS) consumiendo una API REST en Express.
+Sistema web para gestión de clínica dental con arquitectura híbrida. Los datos operacionales (pacientes, citas, doctores, tratamientos) viven en SQL Server, mientras que los datos flexibles y analíticos (expedientes médicos, inventario, encuestas, marketing) se almacenan en MongoDB. El frontend es estático (HTML/CSS/JS) y consume una API REST construida con Express.
 
 ## Tech Stack
 
 ### Backend
-- Node.js + Express
-- SQL Server mediante `mssql` (auth SQL) o `mssql/msnodesqlv8` (auth Windows). En Linux usa SIEMPRE auth SQL definiendo variables `SQL_USER` y `SQL_PASSWORD` para evitar `msnodesqlv8`.
-- MongoDB con `mongoose`
-- Configuración por `.env` (`dotenv`)
-- CORS con `cors`
+- **Node.js + Express** — Servidor API REST
+- **SQL Server** — Base de datos relacional para datos operacionales
+  - Driver: `mssql` (autenticación SQL) o `mssql/msnodesqlv8` (autenticación Windows)
+  - En Linux/macOS usa SIEMPRE autenticación SQL definiendo `SQL_USER` y `SQL_PASSWORD` para evitar `msnodesqlv8`
+- **MongoDB + Mongoose** — Base de datos NoSQL para datos flexibles
+- **dotenv** — Gestión de variables de entorno
+- **cors** — Middleware para CORS
 
 ### Frontend
-- Estático en `public/` (HTML, CSS, Vanilla JS).
-- El cliente usa `API_URL = http://localhost:3000/api` (ver `public/js/app.js`).
+- **HTML/CSS/JS** — Frontend estático servido desde `public/`
+- **Vanilla JavaScript** — Sin frameworks, consumo directo de API
+- **API URL:** `http://localhost:3000/api` (ver `public/js/app.js`)
 
 ### Desarrollo
-- `nodemon` para recarga en modo dev.
+- **nodemon** — Recarga automática en modo desarrollo
 
 ## Guías de Código
-- Módulos CommonJS (`require`, `module.exports`).
-- API REST bajo `/api/*` siguiendo el patrón existente.
-- SQL Server: usa SIEMPRE stored procedures a través de `executeStoredProcedure()` expuesto por `config/database.sql.js`. Evita concatenar SQL.
-- Manejo de errores: responde `{ success: false, message }` con `res.status(4xx/5xx)` y loguea el error en servidor.
-- Validación de entrada: castea tipos numéricos (ej. `parseInt`) en endpoints que lo requieran.
-- MongoDB: utiliza los modelos exportados por `config/database.mongo.js` (`Expediente`, `Proveedor`, `Encuesta`, `Marketing`). Esquemas con `strict:false` para soportar documentos polimórficos.
-- Estilo JS sencillo (sin framework en frontend). Mantén consistencia con el código existente.
+
+### Estilo General
+- Usa módulos CommonJS (`require`, `module.exports`)
+- Todas las rutas API bajo el prefijo `/api/*`
+- Mantén consistencia con el código existente
+
+### SQL Server
+- **SIEMPRE usa stored procedures** a través de `executeStoredProcedure()` expuesto por `config/database.sql.js`
+- **NUNCA concatenes SQL directamente** — esto previene inyecciones SQL
+- Para consultas puntuales, usa `getConnection()` del mismo módulo
+
+### MongoDB
+- Utiliza los modelos exportados por `config/database.mongo.js`: `Expediente`, `Proveedor`, `Encuesta`, `Marketing`
+- Los esquemas tienen `strict: false` para soportar documentos polimórficos (estructura flexible)
+
+### Manejo de Errores
+- Responde con formato consistente: `{ success: false, message: "..." }`
+- Usa códigos HTTP apropiados: `res.status(4xx/5xx)`
+- Loguea el error completo en el servidor con `console.error()`
+
+### Validación de Entrada
+- Castea tipos numéricos explícitamente (ej. `parseInt()`) en endpoints que lo requieran
+- Valida datos antes de pasarlos a la base de datos
 
 ## Estructura del Proyecto
 
